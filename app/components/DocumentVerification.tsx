@@ -98,7 +98,7 @@ const BadgeView = ({ children, variant }: { children: string; variant: 'success'
   };
   const style = colors[variant];
   return (
-    <View style={[styles.badge, { backgroundColor: style.bg, borderColor: style.border }]}>
+    <View style={[styles.badge]}>
       <Text style={[styles.badgeText, { color: style.text }]}>{children}</Text>
     </View>
   );
@@ -334,6 +334,10 @@ progress: {
     },
   gradient: {
     flex: 1,
+  },
+  bg : {
+    flex: 1,
+    backgroundColor: '#F8FAFC',
   },
   scroll: {
     flex: 1,

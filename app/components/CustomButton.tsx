@@ -51,8 +51,8 @@ export const CustomButton = ({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
-        width: "100%",
-        height: 72,
+        width: "50%",
+        height: 35,
         opacity: disabled ? 0.5 : 1,
       }}
       onPress={onPress}
@@ -72,7 +72,7 @@ export const CustomButton = ({
           }}
         >
           {icon && <View style={{ marginRight: 8 }}><ExpoImage source={icon} style={{ width: 20, height: 20, tintColor: Colors[theme].text }} /></View>}
-          <Text style={{ color: Colors[theme].text, fontWeight: "bold", fontSize: 18 }}>{title}</Text>
+          <Text style={{ color: Colors[theme].text, fontSize: 10 }}>{title}</Text>
         </Animated.View>
       </View>
     </TouchableOpacity>

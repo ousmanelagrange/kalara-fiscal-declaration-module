@@ -22,22 +22,8 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <ThemeProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Welcome" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="DeclarationHistory" component={DeclarationHistoryScreen} />
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-          <Stack.Screen name="Dashboard" component={DashboardScreen} />
-          <Stack.Screen name="TaxConfig" component={TaxConfigScreen} />
-          <Stack.Screen name="DataImport" component={DataImportScreen} />
-          <Stack.Screen name="DocumentVerification" component={DocumentVerificationScreen} />
-          <Stack.Screen name="TaxCalculation" component={TaxCalculationScreen} />
-          <Stack.Screen name="PreDeclarationSummary" component={PreDeclarationSummaryScreen} />
-          <Stack.Screen name="DeclarationGeneration" component={DeclarationGenerationScreen} />
-          <Stack.Screen name="DeclarationSubmission" component={DeclarationSubmissionScreen} />
-          <Stack.Screen name="CompanySetup" component={CompanySetupScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <TaxConfigScreen />
+
     </ThemeProvider>
   );
 }

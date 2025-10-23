@@ -399,7 +399,7 @@ const TaxConfiguration = ({ navigation }: any) => {  // Pour Précédent
              // Utilise le variant qu'on a ajouté
           />
           <CustomButton
-            title="Suivant : Catégories comptables"
+            title="Suivant"
             onPress={() => navigation.navigate('TaxConfig')}
             icon="arrow-forward"
           />
