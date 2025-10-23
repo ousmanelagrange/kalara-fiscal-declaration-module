@@ -13,6 +13,7 @@ import PreDeclarationSummaryScreen from './app/screens/PreDeclarationSummaryScre
 import DeclarationGenerationScreen from './app/screens/DeclarationGenerationScreen';  // Nouveau
 import DeclarationSubmissionScreen from './app/screens/DeclarationSubmissionScreen';  // Nouveau
 import DeclarationHistoryScreen from './app/screens/DeclarationHistoryScreen';  // Nouveau
+import CompanySetupScreen from './app/screens/CompanySetupScreen';  // Nouveau
 
 
 
@@ -34,6 +35,7 @@ export default function App() {
           <Stack.Screen name="PreDeclarationSummary" component={PreDeclarationSummaryScreen} />
           <Stack.Screen name="DeclarationGeneration" component={DeclarationGenerationScreen} />
           <Stack.Screen name="DeclarationSubmission" component={DeclarationSubmissionScreen} />
+          <Stack.Screen name="CompanySetup" component={CompanySetupScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

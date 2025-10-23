@@ -331,8 +331,8 @@ const ProfileCompletion = () => {
         />
           <CustomButton
             title="Suivant : Configuration fiscale"
-            onPress={() => navigation.navigate('TaxConfig')}
-            icon="arrow-forward"  // Ajoute icône si tu veux
+            onPress={() => navigation.navigate('CompanySetup')}  // Mise à jour            
+            icon="arrow-forward"  
           />
           
         </View>
