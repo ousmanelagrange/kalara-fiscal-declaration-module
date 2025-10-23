@@ -458,6 +458,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     marginBottom: 24,
+
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
@@ -481,12 +482,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#EFF6FF',  // Adapts via theme
   },
   cardTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '600',
   },
   cardDescription: {
     fontSize: 14,
     marginTop: 4,
+    marginRight: 20,
   },
   cardContent: {
     padding: 20,
@@ -530,7 +532,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   picker: {
-    height: 44,
+    height: 50,
   },
   helperText: {
     fontSize: 12,

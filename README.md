@@ -1,3 +1,4 @@
 # kalara-fiscal-declaration-module
 
-Bien vouloir remplacer chaque Screen dans le 
+Pour tester le rendu du composant, remplacer ce dernier dans APP
+Ex. Le composant par défaut qui serra afficher est       <TaxConfigScreen />
