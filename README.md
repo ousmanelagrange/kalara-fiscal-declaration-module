@@ -1,0 +1,1 @@
+# kalara-fiscal-declaration-module
