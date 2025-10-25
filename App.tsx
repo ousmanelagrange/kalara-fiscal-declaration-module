@@ -15,14 +15,14 @@ import DeclarationSubmissionScreen from './app/screens/DeclarationSubmissionScre
 import DeclarationHistoryScreen from './app/screens/DeclarationHistoryScreen';  
 import CompanySetupScreen from './app/screens/CompanySetupScreen';  
 import ProfileCompletionScreen from './app/screens/ProfileCompletionScreen';
-
+import AccountingCategoriesScreen from './app/screens/AccountingCategoriesScreen';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <ThemeProvider>
-      <ProfileCompletionScreen />
+      <AccountingCategoriesScreen />
 
     </ThemeProvider>
   );
