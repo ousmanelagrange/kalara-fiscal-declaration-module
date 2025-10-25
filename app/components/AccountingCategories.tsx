@@ -77,7 +77,7 @@ const AddButton = ({ onPress }: { onPress: () => void }) => {
   const { theme } = useTheme();
   return (
     <TouchableOpacity style={styles.addButton} onPress={onPress} activeOpacity={0.8}>
-      <Ionicons name="plus-outline" size={20} color={Colors[theme].text} />
+      <Ionicons name="add-circle-outline" size={20} color={Colors[theme].text} />
       <Text style={{ color: Colors[theme].text, fontWeight: 'bold', marginLeft: 8 }}>Ajouter</Text>
     </TouchableOpacity>
   );

@@ -22,7 +22,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <ThemeProvider>
-      <AccountingCategoriesScreen />
+      <DeclarationHistoryScreen />
 
     </ThemeProvider>
   );

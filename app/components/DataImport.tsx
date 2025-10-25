@@ -197,7 +197,7 @@ const DataImport = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   gradient: { flex: 1 },
   scroll: { flex: 1 },
-  container: { padding: 24, paddingBottom: 40 },
+  container: { padding: 24, paddingBottom: 40, marginTop: 20 },
   header: { marginBottom: 24 },
   title: { fontSize: 24, fontWeight: 'bold' },
   subtitle: { fontSize: 14 },
@@ -252,6 +252,11 @@ const styles = StyleSheet.create({
   cardTitle: { fontSize: 20, fontWeight: '600', flex: 1 },
   cardDescription: { fontSize: 14, color: '#64748B' },
   cardContent: { padding: 20 },
+  grid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+    },
   fileList: { marginBottom: 24 },
   fileItem: { gap: 8, marginBottom: 16 },
   fileLeft: { flexDirection: 'row', alignItems: 'center', gap: 12, flex: 1 },

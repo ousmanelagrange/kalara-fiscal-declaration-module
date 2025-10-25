@@ -5,16 +5,16 @@ import {
   TextInput,
   StyleSheet,
   Dimensions,
-  ScrollView,
   FlatList,
   TouchableOpacity,
   Alert,
+  ScrollView
 } from 'react-native';
+import * as Progress from 'react-native-progress';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../providers/theme_provider';
 import { Colors } from '../constants/Colors';
-import { CustomButton } from './CustomButton';
 
 const { width: screenWidth } = Dimensions.get('window');
 const isLargeScreen = screenWidth > 600;
@@ -69,20 +69,77 @@ const stats = [
 ];
 
 const getStatusStyle = (color: string) => {
+  const { theme } = useTheme();
   switch (color) {
     case "success": return { bg: '#10B98120', border: '#10B98140', text: '#10B981' };
     case "warning": return { bg: '#F59E0B20', border: '#F59E0B40', text: '#F59E0B' };
-    default: return { bg: '#FFFFFF' + '20', border: '#FFFFFF' + '40', text: '#FFFFFF' + '80' };
+    default: return { bg: Colors[theme].text + '20', border: Colors[theme].text + '40', text: Colors[theme].text + '80' };
   }
 };
 
 const StatusBadge = ({ status, color }: { status: string; color: string }) => {
-  const { theme } = useTheme();
   const style = getStatusStyle(color);
   return (
     <View style={[styles.statusBadge, { backgroundColor: style.bg, borderColor: style.border }]}>
       <Text style={[styles.statusText, { color: style.text }]}>{status}</Text>
     </View>
+  );
+};
+
+const BadgeOutline = ({ children }: { children: string }) => {
+  const { theme } = useTheme();
+  return (
+    <View style={[styles.badgeOutline, { borderColor: Colors[theme].text + '20' }]}>
+      <Text style={[styles.badgeOutlineText, { color: Colors[theme].text + '80' }]}>{children}</Text>
+    </View>
+  );
+};
+
+const ExportButton = ({ onPress }: { onPress: () => void }) => {
+  const { theme } = useTheme();
+  return (
+    <TouchableOpacity style={styles.exportButton} onPress={onPress} activeOpacity={0.8}>
+      <Ionicons name="download-outline" size={16} color={Colors[theme].semantic.primaryBlue} />
+      <Text style={{ color: Colors[theme].semantic.primaryBlue, fontWeight: 'bold', marginLeft: 8 }}>Exporter tout</Text>
+    </TouchableOpacity>
+  );
+};
+
+const FilterButton = ({ onPress }: { onPress: () => void }) => {
+  const { theme } = useTheme();
+  return (
+    <TouchableOpacity style={styles.filterButton} onPress={onPress} activeOpacity={0.8}>
+      <Ionicons name="filter-outline" size={8} color={Colors[theme].text + '80'} />
+      <Text style={{ color: Colors[theme].text + '80', marginLeft: 8, fontSize: 14 }}>Filtres</Text>
+    </TouchableOpacity>
+  );
+};
+
+const PeriodButton = ({ onPress }: { onPress: () => void }) => {
+  const { theme } = useTheme();
+  return (
+    <TouchableOpacity style={styles.periodButton} onPress={onPress} activeOpacity={0.8}>
+      <Ionicons name="calendar-outline" size={16} color={Colors[theme].text + '80'} />
+      <Text style={{ color: Colors[theme].text + '80', marginLeft: 8, fontSize: 14 }}>Période</Text>
+    </TouchableOpacity>
+  );
+};
+
+const SeeButton = ({ onPress }: { onPress: () => void }) => {
+  const { theme } = useTheme();
+  return (
+    <TouchableOpacity style={styles.seeButton} onPress={onPress} activeOpacity={0.8}>
+      <Ionicons name="eye-outline" size={16} color={Colors[theme].text + '80'} />
+    </TouchableOpacity>
+  );
+};
+
+const DownloadButton = ({ onPress }: { onPress: () => void }) => {
+  const { theme } = useTheme();
+  return (
+    <TouchableOpacity style={styles.downloadButton} onPress={onPress} activeOpacity={0.8}>
+      <Ionicons name="download-outline" size={16} color={Colors[theme].text + '80'} />
+    </TouchableOpacity>
   );
 };
 
@@ -99,6 +156,9 @@ const DeclarationHistory = ({ navigation }: any) => {
 
   const handleExport = () => Alert.alert('Exported', 'Tous les historiques exportés en CSV !');
 
+  const handleFilter = () => console.log('Filtres');
+  const handlePeriod = () => console.log('Période');
+
   const handleView = (item: typeof historyData[0]) => Alert.alert('Voir', `Ouvrir déclaration ${item.period}`);
   const handleDownload = (item: typeof historyData[0]) => Alert.alert('Téléchargé', `Déclaration ${item.period} téléchargée !`);
 
@@ -111,41 +171,44 @@ const DeclarationHistory = ({ navigation }: any) => {
         <View style={styles.historyInfo}>
           <View style={styles.historyHeader}>
             <Text style={[styles.historyPeriod, { color: Colors[theme].text }]}>{item.period}</Text>
-            <BadgeView variant="outline">{item.type}</BadgeView>
+            <BadgeOutline>{item.type}</BadgeOutline>
           </View>
           <Text style={[styles.historyDetails, { color: Colors[theme].text + '80' }]}>{item.amount} • {item.date}</Text>
         </View>
       </View>
       <View style={styles.historyRight}>
         <StatusBadge status={item.status} color={item.color} />
-        <CustomButton title="Voir" onPress={() => handleView(item)} variant="outline" size="small" icon="eye-outline" />
-        <CustomButton title="Télécharger" onPress={() => handleDownload(item)} variant="outline" size="small" icon="download-outline" />
+        <SeeButton onPress={() => handleView(item)} />
+        <DownloadButton onPress={() => handleDownload(item)} />
       </View>
     </TouchableOpacity>
+  );
+
+  const renderStat = (stat: typeof stats[0], index: number) => (
+    <View key={index} style={[styles.statCard, { borderColor: Colors[theme].text + '20', shadowColor: Colors[theme].text + '10' }]}>
+      <View style={styles.statContent}>
+        <Text style={[styles.statLabel, { color: Colors[theme].text + '80' }]}>{stat.label}</Text>
+        <Text style={[styles.statValue, { color: Colors[theme].text }]}>{stat.value}</Text>
+      </View>
+    </View>
   );
 
   return (
     <LinearGradient colors={['#FFFFFF', '#F8FAFC']} style={styles.gradient}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
         {/* Header */}
-        <View style={styles.header}>
+        <View style={styles.headerRow}>
           <View>
             <Text style={[styles.title, { color: Colors[theme].text }]}>Historique des déclarations</Text>
             <Text style={[styles.subtitle, { color: Colors[theme].text + '80' }]}>Consultez et téléchargez vos déclarations passées</Text>
+            <ExportButton onPress={handleExport} />
           </View>
-          <CustomButton title="Exporter tout" onPress={handleExport} variant="outline" icon="download-outline" />
+       
         </View>
 
         {/* Stats Grid */}
         <View style={[styles.statsGrid, isLargeScreen ? styles.largeStats : styles.smallStats]}>
-          {stats.map((stat, index) => (
-            <View key={index} style={[styles.statCard, { borderColor: Colors[theme].text + '20', shadowColor: Colors[theme].text + '10' }]}>
-              <View style={styles.statContent}>
-                <Text style={[styles.statLabel, { color: Colors[theme].text + '80' }]}>{stat.label}</Text>
-                <Text style={[styles.statValue, { color: Colors[theme].text }]}>{stat.value}</Text>
-              </View>
-            </View>
-          ))}
+          {stats.map(renderStat)}
         </View>
 
         {/* Filters Card */}
@@ -167,14 +230,16 @@ const DeclarationHistory = ({ navigation }: any) => {
                   value={searchQuery}
                   onChangeText={setSearchQuery}
                 />
+                 <FilterButton onPress={handleFilter} />
+                 <PeriodButton onPress={handlePeriod} />
               </View>
-              <CustomButton title="Filtres" onPress={() => console.log('Filtres')} variant="outline" icon="filter-outline" />
-              <CustomButton title="Période" onPress={() => console.log('Période')} variant="outline" icon="calendar-outline" />
+             
+              
             </View>
           </View>
         </View>
 
-        {/* History Table Card */}
+        {/* History List Card */}
         <View style={[styles.card, { borderColor: Colors[theme].text + '20', shadowColor: Colors[theme].text + '10' }]}>
           <View style={styles.cardHeader}>
             <Text style={[styles.cardTitle, { color: Colors[theme].text }]}>Déclarations archivées</Text>
@@ -194,151 +259,24 @@ const DeclarationHistory = ({ navigation }: any) => {
   );
 };
 
-// BadgeView réutilisable (comme avant)
-const BadgeView = ({ children, variant }: { children: string; variant: 'outline' }) => {
-  const { theme } = useTheme();
-  return (
-    <View style={[styles.badge, { borderColor: Colors[theme].text + '20' }]}>
-      <Text style={[styles.badgeText, { color: Colors[theme].text + '80' }]}>{children}</Text>
-    </View>
-  );
-};
-
 const styles = StyleSheet.create({
-  progress: {
-    height: 8,
-    marginBottom: 32,
-    borderRadius: 4,  // Coins arrondis pour look moderne
-    },
-  gradient: {
-    flex: 1,
-  },
-  scroll: {
-    flex: 1,
-  },
-  container: {
-    padding: 24,
-    paddingBottom: 40,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  headerLeft: {
-    flex: 1,
-  },
-  headerRight: {
-    alignItems: 'flex-end',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 14,
-  },
-  progressText: {
-    fontSize: 12,
-  },
-  progressValue: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-  card: {
-    borderWidth: 1,
-    borderRadius: 12,
-    marginBottom: 24,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
-    elevation: 4,  // Android
-  },
-  cardHeader: {
+  gradient: { flex: 1 },
+  scroll: { flex: 1 },
+  container: { padding: 24, paddingBottom: 40, marginTop: 20 },
+  headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 },
+  title: { fontSize: 20, fontWeight: 'bold' },
+  subtitle: { fontSize: 14 },
+  exportButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
-    paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F5F9',
-  },
-  iconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-    backgroundColor: '#EFF6FF',  // Adapts via theme
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  cardDescription: {
-    fontSize: 14,
-    marginTop: 4,
-  },
-  cardContent: {
-    padding: 20,
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  inputGroup: {
-    width: '48%',
-    marginBottom: 20,
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '500',
-    marginBottom: 8,
-  },
-  required: {
-    color: '#EF4444',  // Rouge pour * (override theme si besoin)
-  },
-  input: {
-    borderWidth: 1,
+    gap: 2,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
     borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-  },
-  textarea: {
     borderWidth: 1,
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    height: 80,
-    textAlignVertical: 'top',
+    margin: 2,
+    borderColor: '#0A84FF',
   },
-  selectContainer: {
-    borderWidth: 1,
-    borderRadius: 8,
-  },
-  picker: {
-    height: 44,
-  },
-  helperText: {
-    fontSize: 12,
-    marginTop: 4,
-  },
-  actions: {
-    flexDirection: 'row',
-    gap: 12,
-    marginBottom: 20,
-  },
-  footer: {
-    fontSize: 12,
-    textAlign: 'center',
-  },  // Ajouts spécifiques :
   statsGrid: { flexDirection: 'row', gap: 24 },
   largeStats: {},
   smallStats: { flexDirection: 'column', gap: 16 },
@@ -354,13 +292,46 @@ const styles = StyleSheet.create({
   statContent: { alignItems: 'center', padding: 24 },
   statLabel: { fontSize: 14, marginBottom: 8 },
   statValue: { fontSize: 20, fontWeight: 'bold' },
+  card: {
+    flex:1, marginTop: 24,
+    borderWidth: 1,
+    borderRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4,
+  },
+  cardHeader: { padding: 20 },
+  cardTitle: { fontSize: 20, fontWeight: '600' },
+  cardDescription: { fontSize: 14, marginTop: 4 },
+  cardContent: { padding: 20 },
   filtersRow: { flexDirection: 'row', gap: 12, alignItems: 'center' },
-  searchContainer: { flex: 1, position: 'relative' },
+  searchContainer: { flex: 1, position: 'relative', width: '10%' },
   searchIcon: { position: 'absolute', left: 12, top: '50%', marginTop: -8 },
-  searchInput: { paddingHorizontal: 40, paddingVertical: 12, borderWidth: 1, borderRadius: 8, fontSize: 16 },
+  searchInput: { paddingHorizontal: 4, paddingVertical: 12, borderWidth: 1, borderRadius: 8, fontSize: 16 },
+  filterButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#0A84FF' + '20',
+  },
+  periodButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#0A84FF" + '20',
+  },
   historyList: { marginBottom: 24 },
   historyRow: {
-    flexDirection: 'row',
+    flexDirection:'column',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
@@ -377,25 +348,39 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  historyInfo: { flex: 1 },
+  historyInfo: {  },
   historyHeader: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 },
-  historyPeriod: { fontSize: 16, fontWeight: '600' },
+  historyPeriod: { fontSize: 14, fontWeight: '600' },
   historyDetails: { fontSize: 14 },
   historyRight: { flexDirection: 'row', gap: 8, alignItems: 'center' },
   statusBadge: {
+    marginTop: 4,
     paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingVertical: 8,
     borderRadius: 9999,
     borderWidth: 1,
   },
   statusText: { fontSize: 12, fontWeight: '500' },
-  badge: {
+  badgeOutline: {
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 9999,
     borderWidth: 1,
+
   },
-  badgeText: { fontSize: 12, fontWeight: '500' },
+  badgeOutlineText: { fontSize: 12, fontWeight: '500' },
+  seeButton: {
+    padding: 6,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#0A84FF' + '20',
+  },
+  downloadButton: {
+    padding: 6,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#0A84FF'+ '20',
+  },
 });
 
 export default DeclarationHistory;
