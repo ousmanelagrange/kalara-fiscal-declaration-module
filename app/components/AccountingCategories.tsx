@@ -311,7 +311,7 @@ const AccountingCategories = ({ navigation }: any) => {
         {/* Actions */}
         <View style={styles.actions}>
           <MainActionButton title="Précédent" onPress={() => navigation.goBack()} variant="outline" />
-          <MainActionButton title="Terminer la configuration" onPress={() => navigation.navigate('DeclarationHistory')} />
+          <MainActionButton title="Terminer" onPress={() => navigation.navigate('DeclarationHistory')} />
         </View>
       </ScrollView>
     </LinearGradient>
@@ -421,8 +421,12 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 12,
     paddingVertical: 6,
+    borderColor: '#FFF' + '40',
+    borderWidth: 1,
     borderRadius: 6,
     backgroundColor: "0A84FF",
+    marginTop: 8,
+    padding: 6,
   },
   modifyButton: {
     paddingHorizontal: 12,
