@@ -458,11 +458,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     marginBottom: 24,
-
+    marginInline: 2,
+    paddingInline: 0,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
-    elevation: 4,  // Android
+    elevation: 4,  
   },
   cardHeader: {
     flexDirection: 'row',
@@ -486,9 +487,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   cardDescription: {
-    fontSize: 14,
+    fontSize: 12,
     marginTop: 4,
     marginRight: 20,
+    paddingRight: 25,
   },
   cardContent: {
     padding: 20,
@@ -499,7 +501,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   inputGroup: {
-    width: '48%',
+    width: '100%',
     marginBottom: 20,
   },
   fullWidth: {
@@ -550,13 +552,17 @@ const styles = StyleSheet.create({
   infoCard: {
     borderWidth: 1,
     borderRadius: 8,
-    padding: 12,
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingRight: 25,
+    paddingLeft: 12,
+
     marginTop: 12,
   },
   infoContent: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 12,
+    gap: 10,
   },
   infoIcon: {
     marginTop: 2,
@@ -567,7 +573,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   infoText: {
-    fontSize: 12,
+    fontSize: 11,
   },
   switchContainer: {
     flexDirection: 'row',

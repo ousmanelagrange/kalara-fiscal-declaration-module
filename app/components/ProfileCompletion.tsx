@@ -19,9 +19,9 @@ import { CustomButton } from './CustomButton';
 const { width: screenWidth } = Dimensions.get('window');
 const isLargeScreen = screenWidth > 600;  // Simule md: pour grille
 
-const ProfileCompletion = () => {
+const ProfileCompletion = ({navigation} :any) => {
   const { theme } = useTheme();
-  const navigation = useNavigation();
+ 
 
 
   return (
@@ -358,8 +358,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    padding: 24,
+    padding: 30,
     paddingBottom: 40,
+    marginTop: 20,
   },
   header: {
     flexDirection: 'row',
@@ -401,14 +402,15 @@ const styles = StyleSheet.create({
   cardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    padding: 35,
     paddingBottom: 12,
     borderBottomWidth: 1,
     borderBottomColor: '#F1F5F9',
+    marginRight: 20,
   },
   iconContainer: {
-    width: 48,
-    height: 48,
+    width: 42,
+    height: 42,
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
@@ -432,7 +434,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   inputGroup: {
-    width: '48%',
+    width: '100%',
     marginBottom: 20,
   },
   fullWidth: {
@@ -449,7 +451,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 8,
-    padding: 12,
+    padding: 16,
     fontSize: 16,
   },
   textarea: {
@@ -465,7 +467,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   picker: {
-    height: 44,
+    height: 50,
   },
   helperText: {
     fontSize: 12,
@@ -484,6 +486,4 @@ const styles = StyleSheet.create({
 
 export default ProfileCompletion;
 
-function useNavigation(): any {
-    throw new Error('Function not implemented.');
-}
+
